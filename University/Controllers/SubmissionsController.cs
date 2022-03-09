@@ -10,111 +10,107 @@ using University.Models;
 
 namespace University.Controllers
 {
-    public class IdeasController : Controller
+    public class SubmissionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Ideas
+        // GET: Submissions
         public ActionResult Index()
         {
-            return View(db.Idea_ID.ToList());
+            return View(db.SubMS_ID.ToList());
         }
 
-        // GET: Ideas/Details/5
+        // GET: Submissions/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Idea idea = db.Idea_ID.Find(id);
-            if (idea == null)
+            Submission submission = db.SubMS_ID.Find(id);
+            if (submission == null)
             {
                 return HttpNotFound();
             }
-            return View(idea);
+            return View(submission);
         }
 
-        // GET: Ideas/Create
+        // GET: Submissions/Create
         public ActionResult Create()
         {
-            var category=db.Category_ID.ToList();
-            var submisson = db.SubMS_ID.ToList();
-            ViewBag.category = category;
-            ViewBag.submission = submisson;
             return View();
         }
 
-        // POST: Ideas/Create
+        // POST: Submissions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Idea_ID,Title,Description,Content,Created_Date,Last_Modified_Date")] Idea idea)
+        public ActionResult Create([Bind(Include = "id,name,Description,CloSure_Date,FinalClosure_Date")] Submission submission)
         {
             if (ModelState.IsValid)
             {
-                db.Idea_ID.Add(idea);
+                db.SubMS_ID.Add(submission);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(idea);
+            return View(submission);
         }
 
-        // GET: Ideas/Edit/5
+        // GET: Submissions/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Idea idea = db.Idea_ID.Find(id);
-            if (idea == null)
+            Submission submission = db.SubMS_ID.Find(id);
+            if (submission == null)
             {
                 return HttpNotFound();
             }
-            return View(idea);
+            return View(submission);
         }
 
-        // POST: Ideas/Edit/5
+        // POST: Submissions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Idea_ID,Title,Description,Content,Created_Date,Last_Modified_Date")] Idea idea)
+        public ActionResult Edit([Bind(Include = "id,name,Description,CloSure_Date,FinalClosure_Date")] Submission submission)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(idea).State = EntityState.Modified;
+                db.Entry(submission).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(idea);
+            return View(submission);
         }
 
-        // GET: Ideas/Delete/5
+        // GET: Submissions/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Idea idea = db.Idea_ID.Find(id);
-            if (idea == null)
+            Submission submission = db.SubMS_ID.Find(id);
+            if (submission == null)
             {
                 return HttpNotFound();
             }
-            return View(idea);
+            return View(submission);
         }
 
-        // POST: Ideas/Delete/5
+        // POST: Submissions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Idea idea = db.Idea_ID.Find(id);
-            db.Idea_ID.Remove(idea);
+            Submission submission = db.SubMS_ID.Find(id);
+            db.SubMS_ID.Remove(submission);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
